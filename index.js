@@ -13,10 +13,11 @@ function uuidv4() {
         return v.toString(16);
     });
 }
-function get(){
+function get(key = null){
     const content = require(DB_PATH);
 
-    return content
+    if(!key) return content
+    else return content[key]
 }
 function create(key){
     const content = require(DB_PATH);
