@@ -1,6 +1,6 @@
 {
   "name": "jnbase",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Manipulates json files easily for use as lightweight databases.",
   "main": "index.js",
   "scripts": {

@@ -39,12 +39,22 @@ function remove(key){
     }
 }
 
-const obj = {
-    add: (key, newObj) => {
+const data = {
+    add: (key, newData) => {
         const content = require('./db.json');
 
-        if(!('id' in newObj)) newObj['id'] = uuidv4();
-        content[key].push(newObj)
+        if(!('id' in newData)) newData['id'] = uuidv4();
+        content[key].push(newData)
+
+        fs.writeFileSync('db.json', JSON.stringify(content));
+    },
+    addMultiple: (key, newDataList) => {
+        const content = require('./db.json');
+
+        newDataList.forEach(newData => {
+            if(!('id' in newData)) newData['id'] = uuidv4();
+            content[key].push(newData)
+        })
 
         fs.writeFileSync('db.json', JSON.stringify(content));
     },
@@ -120,5 +130,5 @@ module.exports = {
     create,
     set,
     remove,
-    obj
+    data
 }

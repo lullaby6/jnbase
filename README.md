@@ -17,15 +17,18 @@ const jnbase = require('jnbase');
 jnbase.create('users')
 
 //adding users
-jnbase.obj.add('users', {username: 'lullaby6'});
-jnbase.obj.add('users', {username: 'Elon Musk'});
+jnbase.data.add('users', {username: 'lullaby6'});
+jnbase.data.add('users', {username: 'Elon Musk'});
+
+//adding multiple users
+jnbase.data.addMultiple('users', [{username: 'marcos15'}, {username: 'Pedro'}]);
 
 //updating user
-jnbase.obj.update('users', {username: 'lullaby6'}, {username: 'Lullaby'});
+jnbase.data.update('users', {username: 'lullaby6'}, {username: 'Lullaby'});
 
 //removing user
-jnbase.obj.remove('users', {username: 'Elon Musk'});
+jnbase.data.remove('users', {username: 'Elon Musk'});
 
 //get user id
-console.log(jnbase.obj.get('users', {username: 'Lullaby'})[0].id)
+console.log(jnbase.data.get('users', {username: 'Lullaby'})[0].id)
 ```
