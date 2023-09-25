@@ -121,7 +121,9 @@ const data = {
 
         const arrayCopy = Array.from(content[key])
 
-        indexs.forEach(i => arrayCopy.splice(i, 1))
+        // indexs.forEach(i => arrayCopy.splice(i, 1))
+        for (let i = indexs.length -1; i >= 0; i--)
+            arrayCopy.splice(indexs[i], 1);
 
         content[key] = arrayCopy
 
