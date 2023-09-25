@@ -1,0 +1,20 @@
+{
+  "name": "jnbase",
+  "version": "1.0.0",
+  "description": "Manipulates json files easily for use as lightweight databases.",
+  "main": "index.js",
+  "scripts": {
+    "publish": "npm publish"
+  },
+  "keywords": ["db", "database", "json", "nosql", "file"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lullaby6/jnbase.git"
+  },
+  "author": "github.com/lullaby6",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lullaby6/jnbase/issues"
+  },
+  "homepage": "https://github.com/lullaby6/jnbase"
+}
