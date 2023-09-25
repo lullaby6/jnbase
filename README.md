@@ -21,7 +21,7 @@ jnbase.obj.add('users', {username: 'lullaby6'});
 jnbase.obj.add('users', {username: 'Elon Musk'});
 
 //updating user
-jnbase.obj.update('users', {username: 'lullaby6'}, {username: 'Lullbay'});
+jnbase.obj.update('users', {username: 'lullaby6'}, {username: 'Lullaby'});
 
 //removing user
 jnbase.obj.remove('users', {username: 'Elon Musk'});
