@@ -1,6 +1,9 @@
 const fs = require('fs');
+const {join} = require('path')
 
-if(!fs.existsSync('db.json')) fs.writeFileSync('db.json', '{}');
+const DB_PATH = join(__dirname, 'db.json')
+
+if(!fs.existsSync(DB_PATH)) fs.writeFileSync(DB_PATH, '{}');
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -11,55 +14,55 @@ function uuidv4() {
     });
 }
 function get(){
-    const content = require(`./db.json`);
+    const content = require(DB_PATH);
 
     return content
 }
 function create(key){
-    const content = require(`./db.json`);
+    const content = require(DB_PATH);
 
     if(!(key in content)) {
         content[key] = []
 
-        fs.writeFileSync('db.json', JSON.stringify(content));
+        fs.writeFileSync(DB_PATH, JSON.stringify(content));
     }
 }
 
 function set(content){
-    fs.writeFileSync('db.json', JSON.stringify(content));
+    fs.writeFileSync(DB_PATH, JSON.stringify(content));
 }
 
 function remove(key){
-    const content = require(`./db.json`);
+    const content = require(DB_PATH);
 
     if(key in content) {
         delete content[key]
 
-        fs.writeFileSync('db.json', JSON.stringify(content));
+        fs.writeFileSync(DB_PATH, JSON.stringify(content));
     }
 }
 
 const data = {
     add: (key, newData) => {
-        const content = require('./db.json');
+        const content = require(DB_PATH);
 
         if(!('id' in newData)) newData['id'] = uuidv4();
         content[key].push(newData)
 
-        fs.writeFileSync('db.json', JSON.stringify(content));
+        fs.writeFileSync(DB_PATH, JSON.stringify(content));
     },
     addMultiple: (key, newDataList) => {
-        const content = require('./db.json');
+        const content = require(DB_PATH);
 
         newDataList.forEach(newData => {
             if(!('id' in newData)) newData['id'] = uuidv4();
             content[key].push(newData)
         })
 
-        fs.writeFileSync('db.json', JSON.stringify(content));
+        fs.writeFileSync(DB_PATH, JSON.stringify(content));
     },
     get: (key, condition) => {
-        const content = require('./db.json');
+        const content = require(DB_PATH);
 
         const keys = Object.keys(condition)
         const values = Object.values(condition)
@@ -76,7 +79,7 @@ const data = {
         return results
     },
     update: (key, condition, newData) => {
-        const content = require('./db.json');
+        const content = require(DB_PATH);
 
         const keys = Object.keys(condition)
         const values = Object.values(condition)
@@ -98,10 +101,10 @@ const data = {
 
         content[key] = arrayCopy
 
-        fs.writeFileSync('db.json', JSON.stringify(content));
+        fs.writeFileSync(DB_PATH, JSON.stringify(content));
     },
     remove: (key, condition) => {
-        const content = require('./db.json');
+        const content = require(DB_PATH);
 
         const keys = Object.keys(condition)
         const values = Object.values(condition)
@@ -121,7 +124,7 @@ const data = {
 
         content[key] = arrayCopy
 
-        fs.writeFileSync('db.json', JSON.stringify(content));
+        fs.writeFileSync(DB_PATH, JSON.stringify(content));
     },
 }
 
