@@ -67,7 +67,7 @@ const {
 | `getDataById`        | Retrieves a specific item by its ID.                                                | `key` (string), `id` (string)                            | `Promise<Object, undefined>`   |
 | `getDataByObject`    | Retrieves items matching a specific set of key-value pairs.                         | `key` (string), `condition` (object)                     | `Promise<Array>`               |
 | `updateDataById`     | Updates fields of an item identified by ID.                                         | `key` (string), `id` (string), `newData` (object)        | `Promise<boolean>`             |
-| `updateDataByObject` | Updates items matching a condition.                                                 | `key` (string), `condition` (object), `newData` (object) | `Promise<number>` (count)      |
+| `updateDataByObject` | Updates items matching a condition.                                                 | `key` (string), `condition` (object), `newData` (object) | `Promise<number>`              |
 | `deleteDataById`     | Removes an item by its ID.                                                          | `key` (string), `id` (string)                            | `Promise<boolean>`             |
 | `deleteDataByObject` | Removes items matching a condition.                                                 | `key` (string), `condition` (object)                     | `Promise<boolean>`             |
 | `hasDataById`        | Checks if an item with the given ID exists.                                         | `key` (string), `id` (string)                            | `Promise<boolean>`             |
