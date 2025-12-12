@@ -44,9 +44,11 @@ const {
 		role: "admin",
 	});
 
-	const user = await getDataByObject("users", {
+	const users = await getDataByObject("users", {
 		name: "Alice",
-	})[0];
+	});
+
+	const user = users[0];
 
 	console.log(user);
 
