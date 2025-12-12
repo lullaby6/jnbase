@@ -62,7 +62,7 @@ const {
 
 | Method               | Description                                                                         | Parameters                                               | Returns                    |
 | ---------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------|----------------------------|
-| `createData`         | Adds a new object to a key array. Generates UUID if missing. Checks for duplicates. | "key" (string), "data" (object)                          | Promise<void>              |
+| `createData`         | Adds a new object to a key array. Generates UUID if missing. Checks for duplicates. | "key" (string), "data" (object)                          | `Promise<void>`            |
 | `createMultipleData` | Adds multiple objects to a key array efficiently.                                   | "key" (string), "dataList" (array)                       | Promise<void>              |
 | `getDataById`        | Retrieves a specific item by its ID.                                                | "key" (string), "id" (string)                            | Promise<Object, undefined> |
 | `getDataByObject`    | Retrieves items matching a specific set of key-value pairs.                         | "key" (string), "condition" (object)                     | Promise<Array>             |
