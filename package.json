@@ -1,7 +1,7 @@
 {
 	"name": "jnbase",
 	"version": "2.0.0",
-	"description": "Manipulates json files easily for use as lightweight databases.",
+	"description": "Simple and lightweight and asynchronous file-based JSON database.",
 	"main": "index.js",
 	"module": "index.mjs",
 	"scripts": {
