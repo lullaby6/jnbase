@@ -1,5 +1,9 @@
-const fs = require('fs').promises;
-const { join } = require('path');
+import { promises as fs } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const JSON_FILE_PATH = join(__dirname, 'jnbase.json');
 
@@ -52,7 +56,6 @@ async function loadCache() {
     } catch (error) {
         if (error.code === 'ENOENT') {
             dbCache = {};
-
             await saveCache();
         } else {
             throw error;
@@ -77,27 +80,23 @@ async function executeWrite(operation) {
 
     try {
         await loadCache();
-
         const result = await operation(dbCache);
-
         if (result !== false) {
             await saveCache();
         }
-
         return result;
     } finally {
         dbLock.release();
     }
 }
 
-
-async function getJsonData() {
+export async function getJsonData() {
     await loadCache();
 
     return dbCache;
 }
 
-async function setJsonData(jsonData) {
+export async function setJsonData(jsonData) {
     await executeWrite((cache) => {
         for (const key in cache) delete cache[key];
 
@@ -105,19 +104,19 @@ async function setJsonData(jsonData) {
     });
 }
 
-async function getKeyData(key) {
+export async function getKeyData(key) {
     const data = await getJsonData();
 
     return data[key];
 }
 
-async function hasKey(key) {
+export async function hasKey(key) {
     const data = await getJsonData();
 
     return key in data;
 }
 
-async function createKey(key) {
+export async function createKey(key) {
     await executeWrite((cache) => {
         if (key in cache) return false;
 
@@ -125,7 +124,7 @@ async function createKey(key) {
     });
 }
 
-async function setKeyData(key, value) {
+export async function setKeyData(key, value) {
     await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
 
@@ -133,7 +132,7 @@ async function setKeyData(key, value) {
     });
 }
 
-async function renameKey(key, newKey) {
+export async function renameKey(key, newKey) {
     await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
 
@@ -143,7 +142,7 @@ async function renameKey(key, newKey) {
     });
 }
 
-async function deleteKey(key) {
+export async function deleteKey(key) {
     await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
 
@@ -151,20 +150,23 @@ async function deleteKey(key) {
     });
 }
 
-async function clearKeyData(key) {
+export async function clearKeyData(key) {
     await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
+
         cache[key] = [];
     });
 }
 
-async function getDataById(key, id) {
+export async function getDataById(key, id) {
     const data = await getJsonData();
+
     if (!(key in data)) throw new Error(`${key} key not found`);
+
     return data[key].find(item => item.id === id);
 }
 
-async function getDataByObject(key, condition) {
+export async function getDataByObject(key, condition) {
     const data = await getJsonData();
 
     if (!(key in data)) throw new Error(`${key} key not found`);
@@ -177,7 +179,7 @@ async function getDataByObject(key, condition) {
     });
 }
 
-async function createData(key, data) {
+export async function createData(key, data) {
     await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} not found`);
 
@@ -192,7 +194,7 @@ async function createData(key, data) {
     });
 }
 
-async function createMultipleData(key, dataList) {
+export async function createMultipleData(key, dataList) {
     await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} not found`);
 
@@ -204,12 +206,13 @@ async function createMultipleData(key, dataList) {
             } else {
                 data['id'] = uuidv4();
             }
+
             cache[key].push(data);
         }
     });
 }
 
-async function hasDataById(key, id) {
+export async function hasDataById(key, id) {
     const data = await getJsonData();
 
     if (!(key in data)) throw new Error(`${key} key not found`);
@@ -217,26 +220,28 @@ async function hasDataById(key, id) {
     return data[key].some(item => item.id === id);
 }
 
-async function hasDataByObject(key, condition) {
+export async function hasDataByObject(key, condition) {
     const results = await getDataByObject(key, condition);
 
     return results.length > 0;
 }
 
-async function updateDataById(key, id, newData) {
+export async function updateDataById(key, id, newData) {
     return await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
 
         const index = cache[key].findIndex(item => item.id === id);
+
         if (index !== -1) {
             cache[key][index] = { ...cache[key][index], ...newData };
             return true;
         }
+
         return false;
     });
 }
 
-async function updateDataByObject(key, condition, newData) {
+export async function updateDataByObject(key, condition, newData) {
     return await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
 
@@ -256,7 +261,7 @@ async function updateDataByObject(key, condition, newData) {
     });
 }
 
-async function deleteDataById(key, id) {
+export async function deleteDataById(key, id) {
     return await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
 
@@ -267,7 +272,7 @@ async function deleteDataById(key, id) {
     });
 }
 
-async function deleteDataByObject(key, condition) {
+export async function deleteDataByObject(key, condition) {
     return await executeWrite((cache) => {
         if (!(key in cache)) throw new Error(`${key} key not found`);
 
@@ -282,27 +287,3 @@ async function deleteDataByObject(key, condition) {
         return cache[key].length !== initialLength;
     });
 }
-
-module.exports = {
-    getJsonData,
-    setJsonData,
-
-    getKeyData,
-    hasKey,
-    createKey,
-    setKeyData,
-    renameKey,
-    deleteKey,
-    clearKeyData,
-
-    createData,
-    createMultipleData,
-    getDataById,
-    getDataByObject,
-    hasDataById,
-    hasDataByObject,
-    updateDataById,
-    updateDataByObject,
-    deleteDataById,
-    deleteDataByObject,
-};

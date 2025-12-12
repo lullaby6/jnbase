@@ -1,23 +1,27 @@
 {
-  "name": "jnbase",
-  "version": "1.0.8",
-  "description": "Manipulates json files easily for use as lightweight databases.",
-  "main": "index.js",
-  "scripts": {
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lullaby6/jbase.git"
-  },
-  "keywords": [
-    "nosql",
-    "json",
-    "db",
-    "database"
-  ],
-  "author": "lullaby6",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lullaby6/jbase/issues"
-  }
+	"name": "jnbase",
+	"version": "2.0.0",
+	"description": "Manipulates json files easily for use as lightweight databases.",
+	"main": "index.js",
+	"module": "index.mjs",
+	"scripts": {
+		"publish": "npm publish --access=public"
+	},
+	"keywords": [
+		"nosql",
+		"json",
+		"db",
+		"database"
+	],
+	"author": "github.com/lullaby6",
+	"license": "MIT",
+	"type": "commonjs",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lullaby6/jbase.git"
+	},
+	"homepage": "https://github.com/lullaby6/jnbase.js",
+	"bugs": {
+		"url": "https://github.com/lullaby6/jbase/issues"
+	}
 }
